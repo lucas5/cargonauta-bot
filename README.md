@@ -32,8 +32,8 @@ Bot para Discord com sistema automático de atribuição de cargos via reações
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/among-discord-bot.git
-cd among-discord-bot
+git clone https://github.com/lucas5/cargonauta-bot.git
+cd cargonauta-bot
 ```
 
 ### 2. Crie um ambiente virtual
@@ -221,7 +221,7 @@ O bot exibe logs detalhados no terminal. Quando alguém reage, você verá:
 ## 📁 Estrutura do Projeto
 
 ```
-among-discord-bot/
+cargonauta-bot/
 ├── discord_bot.py          # Código principal do bot
 ├── requirements.txt        # Dependências Python
 ├── .env.example           # Template de variáveis de ambiente
@@ -269,7 +269,7 @@ Desenvolvido para o servidor **Among** 🎮
 
 ## 📞 Suporte
 
-Encontrou algum bug ou tem sugestões? Abra uma [issue](https://github.com/seu-usuario/among-discord-bot/issues)!
+Encontrou algum bug ou tem sugestões? Abra uma [issue](https://github.com/lucas5/cargonauta-bot/issues)!
 
 ---
 
