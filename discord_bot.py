@@ -105,6 +105,15 @@ async def setup(ctx):
         inline=False
     )
 
+    icon_url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo.svg"
+
+    embed.set_footer(
+        text="Among Server • Reaja para pegar seus cargos!",
+        icon_url=icon_url
+    )
+
+    embed.set_thumbnail(url=icon_url)  # Logo Among Us (opcional)
+
     message = await ctx.send(embed=embed)
 
     # Adiciona todas as reações
