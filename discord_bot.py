@@ -107,10 +107,10 @@ async def setup(ctx):
 
     embed.set_footer(
         text="Among Server • Reaja para pegar seus cargos!",
-        icon_url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo.png"
+        icon_url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo_v2.png"
     )
 
-    embed.set_thumbnail(url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo.png")  # Logo Among Us (opcional)
+    embed.set_thumbnail(url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo_v2.png")
 
     message = await ctx.send(embed=embed)
 
