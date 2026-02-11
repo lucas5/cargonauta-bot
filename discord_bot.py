@@ -40,7 +40,7 @@ async def setup(ctx):
     """Cria a mensagem de boas-vindas com reações"""
 
     embed = discord.Embed(
-        title="🎮 Bem-vindo ao Servidor Among! 🎮",
+        title="Bem-vindo ao Servidor Among!",
         description=(
             "Hey, tripulante! Escolha seus cargos reagindo aos emojis abaixo e fique por dentro de tudo que rola no servidor! Para conseguir visualizar os canais que deseja apenas reaja a essa mensagem de acordo com sua preferência!\n"
             "-"
@@ -105,14 +105,12 @@ async def setup(ctx):
         inline=False
     )
 
-    icon_url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo.svg"
-
     embed.set_footer(
         text="Among Server • Reaja para pegar seus cargos!",
-        icon_url=icon_url
+        icon_url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo.png"
     )
 
-    embed.set_thumbnail(url=icon_url)  # Logo Among Us (opcional)
+    embed.set_thumbnail(url="https://raw.githubusercontent.com/lucas5/cargonauta-bot/main/assets/logo.png")  # Logo Among Us (opcional)
 
     message = await ctx.send(embed=embed)
 
