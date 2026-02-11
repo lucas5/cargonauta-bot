@@ -23,132 +23,64 @@ Bot para Discord com sistema automático de atribuição de cargos via reações
 
 ## 📋 Pré-requisitos
 
-- Python 3.8 ou superior
-- Conta Discord
-- Permissões de administrador no servidor
+- Python 3.8+ ou Docker
+- Bot Discord configurado ([Portal de Desenvolvedores](https://discord.com/developers/applications))
+- Permissões: Manage Roles, Send Messages, Read Message History, Add Reactions
+- Intents ativados: PRESENCE, SERVER MEMBERS, MESSAGE CONTENT
 
-## 🚀 Instalação
+## � Instalação e Uso
 
-### 1. Clone o repositório
+### Configuração Inicial
+
+Clone e configure:
 
 ```bash
 git clone https://github.com/lucas5/cargonauta-bot.git
 cd cargonauta-bot
+cp env.example .env
+# Edite o .env com seu token e IDs dos cargos
 ```
 
-### 2. Crie um ambiente virtual
+### Executar com Docker (Recomendado)
 
 ```bash
-python3 -m venv bot_env
-source bot_env/bin/activate  # Linux/Mac
-# ou
-bot_env\Scripts\activate  # Windows
+docker-compose up -d          # Iniciar
+docker-compose logs -f        # Ver logs
+docker-compose restart        # Reiniciar
+docker-compose down           # Parar
 ```
 
-### 3. Instale as dependências
+### Executar com Python Local
 
 ```bash
+# Com pyenv (recomendado)
+pyenv install 3.14.2
+pyenv local 3.14.2
+
+# Instalar dependências
 pip install -r requirements.txt
-```
 
-### 4. Configure o Bot no Discord
-
-1. Acesse o [Portal de Desenvolvedores do Discord](https://discord.com/developers/applications)
-2. Clique em **"New Application"**
-3. Dê um nome ao bot (ex: "Among Bot")
-4. Vá em **"Bot"** no menu lateral
-5. Clique em **"Add Bot"**
-6. Em **"Privileged Gateway Intents"**, ative:
-   - ✅ PRESENCE INTENT
-   - ✅ SERVER MEMBERS INTENT
-   - ✅ MESSAGE CONTENT INTENT
-7. Clique em **"Reset Token"** e copie o token
-
-### 5. Convide o Bot para seu Servidor
-
-1. No Portal de Desenvolvedores, vá em **"OAuth2"** > **"URL Generator"**
-2. Em **"Scopes"**, marque:
-   - ✅ `bot`
-3. Em **"Bot Permissions"**, marque:
-   - ✅ Manage Roles
-   - ✅ Send Messages
-   - ✅ Read Message History
-   - ✅ Add Reactions
-4. Copie o URL gerado e cole no navegador
-5. Selecione seu servidor e autorize
-
-### 6. Configure as Variáveis de Ambiente
-
-Crie um arquivo `.env` na raiz do projeto:
-
-```bash
-cp .env.example .env
-nano .env  # ou use seu editor preferido
-```
-
-Preencha com suas informações:
-
-```env
-# Token do bot Discord
-DISCORD_TOKEN=seu_token_aqui
-
-# IDs dos cargos (use !roles para descobrir)
-ID_DO_CARGO_BATE_PAPO=123456789012345678
-ID_DO_CARGO_CINE_AMONG=123456789012345678
-ID_DO_CARGO_TACA_AMONG=123456789012345678
-ID_DO_CARGO_HOME_OFFICE=123456789012345678
-ID_DO_CARGO_PROGRAMACAO_COMPETITIVA=123456789012345678
-
-# ID da mensagem (preencha após rodar !setup)
-WELCOME_MESSAGE_ID=123456789012345678
-```
-
-## 🎯 Como Usar
-
-### 1. Inicie o bot
-
-```bash
+# Rodar
 python discord_bot.py
 ```
 
-Você deve ver:
-```
-NomeDoBot#1234 está online!
-ID do Bot: 123456789...
-```
+## 🎯 Configuração no Discord
 
-### 2. Liste os cargos do servidor
-
-No Discord, digite:
+**1. Liste os cargos do servidor:**
 ```
 !roles
 ```
+Copie os IDs e adicione no `.env`
 
-Copie os IDs dos cargos e adicione no arquivo `.env`
-
-### 3. Crie a mensagem de boas-vindas
-
-No canal desejado, digite:
+**2. Crie a mensagem de auto-cargos:**
 ```
 !setup
 ```
+Copie o ID da mensagem retornado e adicione no `.env` como `WELCOME_MESSAGE_ID`
 
-O bot criará um embed com todos os emojis e retornará o ID da mensagem. Copie esse ID e adicione no `.env`:
+**3. Reinicie o bot**
 
-```env
-WELCOME_MESSAGE_ID=1234567890123456789
-```
-
-### 4. Reinicie o bot
-
-```bash
-# Pare o bot (Ctrl+C)
-python discord_bot.py
-```
-
-### 5. Teste!
-
-Reaja aos emojis na mensagem e veja os cargos sendo atribuídos automaticamente! ✨
+**4. Teste!** Reaja aos emojis e veja os cargos sendo atribuídos ✨
 
 ## 📝 Comandos Disponíveis
 
@@ -157,66 +89,18 @@ Reaja aos emojis na mensagem e veja os cargos sendo atribuídos automaticamente!
 | `!setup` | Cria a mensagem de boas-vindas com reações | Administrador |
 | `!roles` | Lista todos os cargos do servidor com IDs | Administrador |
 
-## ⚙️ Configuração Avançada
+## ⚙️ Configuração
 
-### Personalizar Emojis
+**Hierarquia de Cargos:** O cargo do bot deve estar acima dos cargos que ele gerencia nas configurações do servidor.
 
-Edite o dicionário `ROLE_EMOJI_MAP` em `discord_bot.py`:
+**Personalizar:** Edite `ROLE_EMOJI_MAP` e a função `setup()` em `discord_bot.py`
 
-```python
-ROLE_EMOJI_MAP = {
-    '💬': os.getenv('ID_DO_CARGO_BATE_PAPO'),
-    '🎬': os.getenv('ID_DO_CARGO_CINE_AMONG'),
-    # Adicione mais emojis aqui...
-}
-```
+## 🐛 Troubleshooting
 
-### Personalizar a Mensagem
-
-Edite a função `setup()` em `discord_bot.py` para customizar cores, textos e campos do embed.
-
-### Hierarquia de Cargos
-
-⚠️ **IMPORTANTE**: O cargo do bot deve estar **acima** dos cargos que ele gerencia!
-
-1. Vá em **Configurações do Servidor** → **Cargos**
-2. Arraste o cargo do bot para cima dos outros cargos
-
-## 🐛 Solução de Problemas
-
-### Bot não inicia
-
-- ✅ Verifique se o token no `.env` está correto
-- ✅ Certifique-se que o arquivo se chama `.env` (com o ponto no início)
-- ✅ Confirme que instalou todas as dependências
-
-### Cargos não são adicionados
-
-- ✅ Verifique se os IDs dos cargos estão corretos
-- ✅ Confirme que o `WELCOME_MESSAGE_ID` está configurado (sem `#`)
-- ✅ Verifique se o cargo do bot está acima dos outros
-- ✅ Certifique-se que o bot tem permissão "Gerenciar Cargos"
-
-### Reações não funcionam
-
-- ✅ Confirme que os **Intents** estão ativados no Discord Developer Portal
-- ✅ Verifique se o `WELCOME_MESSAGE_ID` está correto
-- ✅ Certifique-se que os emojis estão mapeados corretamente
-
-### Logs de Debug
-
-O bot exibe logs detalhados no terminal. Quando alguém reage, você verá:
-
-```
-🔔 Reação detectada!
-   User ID: 123...
-   Message ID: 456...
-   Emoji: 🎬
-   👤 Membro: Usuario#1234
-   🎯 Procurando cargo ID: 789...
-   🎭 Cargo encontrado: Cineamong
-   ✅ Cargo 'Cineamong' adicionado a Usuario#1234!
-```
+- **Bot não inicia:** Verifique token no `.env` e dependências instaladas
+- **Cargos não adicionam:** Confirme IDs corretos, `WELCOME_MESSAGE_ID` configurado e hierarquia de cargos
+- **Reações não funcionam:** Verifique Intents ativados no Discord Developer Portal
+- **Logs:** Use `docker-compose logs -f` ou veja output do terminal
 
 ## 📁 Estrutura do Projeto
 
@@ -224,10 +108,15 @@ O bot exibe logs detalhados no terminal. Quando alguém reage, você verá:
 cargonauta-bot/
 ├── discord_bot.py          # Código principal do bot
 ├── requirements.txt        # Dependências Python
+├── Dockerfile              # Configuração do container Docker
+├── docker-compose.yml      # Orquestração do Docker
+├── .dockerignore          # Arquivos ignorados pelo Docker
 ├── .env.example           # Template de variáveis de ambiente
 ├── .env                   # Suas configurações (não commitar!)
+├── .gitignore             # Arquivos ignorados pelo Git
 ├── README.md              # Este arquivo
-└── GUIA_ENV.md           # Guia detalhado de configuração
+├── LICENSE                # Licença MIT
+└── assets/                # Imagens e recursos
 ```
 
 ## 🔒 Segurança
@@ -242,6 +131,22 @@ bot_env/
 __pycache__/
 *.pyc
 ```
+
+## 🚀 Deploy em Produção
+
+```bash
+# No servidor (com Docker instalado)
+git clone https://github.com/lucas5/cargonauta-bot.git
+cd cargonauta-bot
+cp env.example .env
+# Configure o .env
+docker-compose up -d
+
+# Atualizar
+git pull && docker-compose up -d --build
+```
+
+O bot reinicia automaticamente (`restart: unless-stopped`)
 
 ## 🤝 Contribuindo
 

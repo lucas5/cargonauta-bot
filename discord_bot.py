@@ -20,7 +20,7 @@ ROLE_EMOJI_MAP = {
     '💬': os.getenv('ID_DO_CARGO_BATE_PAPO'),
     '🍿': os.getenv('ID_DO_CARGO_CINE_AMONG'),
     '🏆': os.getenv('ID_DO_CARGO_TACA_AMONG'),
-    '💻': os.getenv('ID_DO_CARGO_HOMEOFFICE'),
+    '💻': os.getenv('ID_DO_CARGO_HOME_OFFICE'),
     '📖': os.getenv('ID_DO_CARGO_PROGRAMACAO_COMPETITIVA')
 }
 
